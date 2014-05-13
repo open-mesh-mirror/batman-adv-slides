@@ -48,7 +48,7 @@
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{What we are not going to talk about today}
+	\frametitle{What we are NOT going to talk about today}
 	\begin{itemize}
 		\item backward compatibility (TVLV, compat number, etc)
 		\item VLAN-ization of non-mesh client handling
@@ -59,6 +59,18 @@
 		\item layer2 anycast support
 		\item DHT generalization (IPv6 address caching, ..)
 		\item ...
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Today's topics}
+	\begin{itemize}
+		\item B.A.T.M.A.N. V introduction
+		\item network-wide multi-interface optimizations
+		\item protocol overview (ELP/OGMv2)
+		\item throughput based metric
+		\item current status / practical tips
+		\item next steps
 	\end{itemize}
 \end{frame}
 
@@ -100,6 +112,40 @@
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.4]{images/multi-if2.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Network-wide multi-interface optimization (4)}
+
+	The tables:
+
+	\begin{itemize}
+		\item each interface has its own routing table
+		\item the default table is used for traffic originating from the host itself
+	\end{itemize}
+
+	batctl o / batctl o -i eth0
+
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Network-wide multi-interface optimization (5)}
+
+	The benefits:
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.175]{images/alternating-limited-view.pdf}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}[c]
+	\frametitle{Network-wide multi-interface optimization (6)}
+
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.3]{images/net-wide-multiif.pdf}
 	\end{figure}
 \end{frame}
 
