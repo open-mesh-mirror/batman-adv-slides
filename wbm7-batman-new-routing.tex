@@ -284,6 +284,7 @@ root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth0/originators
 	\begin{center}
 	\textbf{VPN links, various tunnels\dots} (less common):\\
 	no way to read the throughput right away\\[0.1cm]
+	$\downarrow$\\[0.5cm]
 	\textbf{Has to be explicitly measured}\\[0.5cm]
 	\pause
 	$\downarrow$\\[0.5cm]
@@ -292,24 +293,32 @@ root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth0/originators
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Throughput meter}
+	\frametitle{Throughput meter in batman-adv}
 	\begin{itemize}
-		\item started as Google Summer of Code project
+		\item started as Google Summer of Code project in 2012
 		\item re-implementation of TCP on batman-adv
-		\item no need for IPs (use batman-adv identifiers)
+		\item no need for IPs (uses batman-adv identifiers)
 		\item can be easily used with batctl (batman-adv userspace tool)
+		\item measures the ''payload`` throughput (no packet overhead)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[c]
 	\frametitle{Current status}
 	\begin{itemize}
-		\item cfg/mac80211 patches have been sent to the linux-wireless
-			mailing list. Still require some work, but close to
-			integration
-		\item a working B.A.T.M.A.N. V prototype is available in our git
-			repository (interaction with cfg80211 must be adjusted)
-		\item open problem: how to recover from a dead path faster?
+		\item \textbf{cfg/mac80211 patches} under review by linux-wireless people
+			and close to integration
+		\item a working \textbf{B.A.T.M.A.N. V prototype} is available in our git
+			repository (ordex/batman\_v branch)
+		\item a working \textbf{throughput meter} protorype is available
+			in our git reporitory (ordex/bw\_meter branch)
+	\end{itemize}
+	\pause
+	Open problems:
+	\begin{itemize}
+		\item how to recover from a dead path faster?
+		\pause
+		\item how do we properly \textbf{combine} different throughputs?
 	\end{itemize}
 \end{frame}
 
@@ -342,7 +351,6 @@ root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth0/originators
 	# echo BATMAN_IV >/sys/module/batman_adv/parameters/routing_algo
 	# batctl if add -m bat1 wlan1
 	\end{lstlisting}
-
 \end{frame}
 
 \begin{frame}[c]
@@ -353,17 +361,7 @@ root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth0/originators
 	\end{figure}
 \end{frame}
 
-\section{Conclusions}
-\begin{frame}
-	\frametitle{Contacts}
-	Nice idea, needs a lot of testing.
-
-	\textbf{Wiki:}\\
-	http://www.open-mesh.org\\
-	\textbf{IRC:}\\
-	\#batman at irc.freenode.org\\
-	\textbf{Mailing list} (check the wiki)
-\end{frame}
+\section{Conslusions}
 
 \begin{frame}[c]
 	\begin{center}
