@@ -244,7 +244,6 @@
 	\begin{center}
 	Our use case is \textbf{ath9k}, thus our work is focussed on
 	\textbf{MinstrelHT}\\[0.5cm]
-	\pause
 	MinstrelHT periodically uses data-frames to probe bitrates\\
 	Unused links need to be ''manually`` probed\\[0.5cm]
 	\pause
@@ -261,6 +260,11 @@
 	read negotiated speed from the driver\\[0.5cm]
 	\pause
 	not the best approach, but it's easy\\[0.5cm]
+	Example:
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.25]{images/ethernet-switch.pdf}
+	\end{figure}
 	\end{center}
 \end{frame}
 
@@ -277,19 +281,7 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}
-	\begin{itemize}
-		\item How do we measure the throughput?
-		\begin{itemize}
-			\item different RC algorithms (different API
-				implementation? need a different
-				probing schema?)
-			\item different throughput from different link types
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[c]
+\begin{frame}[c,fragile]
 	\frametitle{Throughput meter in batman-adv}
 	\begin{itemize}
 		\item started as Google Summer of Code project in 2012
@@ -297,6 +289,27 @@
 		\item no need for IPs (uses batman-adv identifiers)
 		\item can also be used from userspace (using batctl)
 		\item measures the ''payload`` throughput (no packet overhead)
+	\end{itemize}
+	\addvspace{0.5cm}
+	Example:\\
+	\begin{lstlisting}[basicstyle=\scriptsize]
+	root@NodeA:~# batctl tm -t 3000 NodeB
+	Throughput meter called towards NodeB
+	Test duration 3010ms.
+	Sent 20247000 Bytes.
+	Throughput: 6.41 MB/s (53.81 Mbps)
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Open problems}
+	\begin{itemize}
+		\item different RC algorithms (batman-adv is not aware!)
+		\begin{itemize}
+			\item different API implementation
+			\item need for a different probing schema
+		\end{itemize}
+		\item different throughput from different link types
 	\end{itemize}
 \end{frame}
 
@@ -316,7 +329,6 @@
 	\frametitle{How to use B.A.T.M.A.N. V on my node}
 	The batman-adv kernel module is already able to host more than one
 	routing algorithm
-	\pause
 	\begin{lstlisting}[basicstyle=\scriptsize]
 	# cat /sys/kernel/debug/batman_adv/routing_algos
 	BATMAN_IV
@@ -327,7 +339,6 @@
 	\begin{itemize}
 		\item the routing algorithm can be changed at runtime
 	\end{itemize}
-	\pause
 	\begin{lstlisting}[basicstyle=\scriptsize]
 	# echo BATMAN_V >/sys/module/batman_adv/parameters/routing_algo
 	# batctl if add -m bat0 wlan0
