@@ -1,0 +1,150 @@
+\documentclass[slidestop]{beamer} 
+\usepackage[utf8]{inputenc}
+\usepackage{pgf}
+\usepackage{algorithmic}
+\usepackage{wrapfig}
+\usepackage{array}
+\usepackage{subfigure}
+\usepackage{xmpmulti}
+
+\usetheme{JuanLesPins}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\title[batman-adv: distributed handling of non-mesh clients in a layer 2 mesh]{batman-adv: distributed handling of non-mesh clients in a layer 2 mesh} 
+\author{Marek Lindner \& Antonio Quartulli} 
+\date{May 14th, 2014\\WirelessBattleMeshv7 - Leipzig}
+\institute[]{B.A.T.M.A.N.-Advanced\\www.open-mesh.org}
+
+\newcommand{\cfbox}[2]{
+	\colorlet{currentcolor}{.}
+	{\color{#1}
+	\fbox{\color{currentcolor}#2}}
+}
+
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{What we are not going to talk about today}
+	\begin{itemize}
+		\item backward compatibility (TVLV)
+		\item per VLAN non-mesh client handling
+		\item fragmentation v2.0 (we fragment everything!)
+		\item extended AP isolation
+		\item multicast improvements
+		\item connecting batman clouds
+	\end{itemize}
+\end{frame}
+
+\section{Introduction}
+\begin{frame}[c]
+	\frametitle{Network wide multi-interface optimization}
+	chachacha cool!
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{multi-if.jpg}
+	\end{figure}
+\end{frame}
+
+\section{Routing protocol}
+\begin{frame}[c]
+	\frametitle{B.A.T.M.A.N. IV - the present}
+	\begin{itemize}
+		\item packet loss based
+		\item one packet (OGM) - two functions
+			\begin{itemize}
+				\item Neighbour discovery/Link quality
+					measurement
+				\item Routing information (and more..) diffusion
+			\end{itemize}
+		\item not easy to tune
+	\end{itemize}
+	\begin{figure}
+		\centering
+	\end{figure}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{B.A.T.M.A.N. V - the future}
+	\begin{itemize}
+		\item ''throughput`` based
+		\item two packets - two functions
+			\begin{itemize}
+				\item ELP: Neighbour discovery/Link metric
+					exchange
+				\item OGM:Routing information (and more..) diffusion
+			\end{itemize}
+		\item ELP and OGM intervals can be tuned independently
+	\end{itemize}
+	\begin{figure}
+		\centering
+	\end{figure}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{How does the routing work?}
+	picture and explanation on how the metric is propagated. (Simon had one
+	in his notes two years ago)
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Bandwidth: how do we get it? 1/2}
+	explain the wifi case and the interaction with cfg/mac80211 (WIP)
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Bandwidth: how do we get it? 2/2}
+	other cases:
+	\begin{itemize}
+		\item Ethernet connections (common scenario)\\
+			read negotiated speed from the driver (not the best
+			solution)
+		\pause
+		\item ADSL lines, VPN links, various tunnels\dots (less
+			common)\\
+			can't directly read it. Needs for an explicit
+			measurement
+	\end{itemize}
+	\pause
+	Introduction of a throughput meter in the batman-adv module (started
+	GSoC 2012)
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Bandwidth meter}
+	how it work..blabla like TCP, very simple explanation.
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Current status - how to enable it}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Current status}
+	work in progress
+\end{frame}
+
+\section{Conclusions}
+\begin{frame}
+	Nice idea, needs a lot of testing.
+
+	\textbf{Wiki:}\\
+	http://www.open-mesh.org\\
+	\textbf{IRC:}\\
+	#batman @ Freenode\\
+	\textbf{Mailing list}
+\end{frame}
+
+\begin{frame}[c]
+	\begin{center}
+	\Large{\textbf{Thank you for your attention\\[1cm]
+	Questions?}}
+	\end{center}
+\end{frame}
+
+\end{document}
