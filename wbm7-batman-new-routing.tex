@@ -218,8 +218,36 @@ root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth0/originators
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Reading throughput in kernel space (wifi)}
-	explain the wifi case and the interaction with cfg/mac80211 (WIP)
+	\frametitle{A new metric}
+	\begin{center}
+		Current metric: based on \textbf{packet loss}\\
+		\pause
+		\vspace{0.5cm}
+		The metric in B.A.T.M.A.N. V is based on \textbf{throughput}\\
+		\pause
+		\vspace{0.5cm}
+		But a mesh network can have heterogeneous links:
+		\begin{itemize}
+			\item WiFi
+			\item Ethernet
+			\item VPNs, my-cool-tunnel-software\dots
+		\end{itemize}
+		\pause
+		\vspace{0.5cm}
+		Problems:
+		\begin{itemize}
+			\item How do we measure the throughput?
+			\item How do we combine throughput of different link
+				types?
+		\end{itemize}
+	\end{center}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Reading throughput in kernel space (WiFi)}
+	\textbf{Wireless links:} query the Rate Control algorithm
+	\vfill
+	\pause
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.3]{images/wireless-stack.pdf}
@@ -227,38 +255,46 @@ root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth0/originators
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{A new metric}
+	\frametitle{Reading throughput in kernel space (WiFi) (2)}
 	\begin{center}
-		Current metric: based on \textbf{packet loss}\\
-		\pause
-		New metric: based on \textbf{throughput}\\
+	Our use case is \textbf{ath9k}, thus our work is focussed on
+	\textbf{MinstrealHT}\\[0.5cm]
+	\pause
+	MinstrelHT periodically uses data-frames to probe bitrates\\
+	Unused links need to be ''manually`` probed\\[0.5cm]
+	\pause
+	$\downarrow$\\[0.5cm]
+	ELP sends probes messages to every known neighbour\\
+	(2 per neighbour every 100ms - if link is idle)
 	\end{center}
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Throughput in kernel space (Ethernet)}
-	other cases:
-	\begin{itemize}
-		\item Ethernet connections (common scenario)\\
-			read negotiated speed from the driver (not the best
-			solution)
-		\pause
-		\item ADSL lines, VPN links, various tunnels\dots (less
-			common)\\
-			can't directly read it. Needs for an explicit
-			measurement
-	\end{itemize}
+	\frametitle{Throughput in kernel space (3)}
+	\begin{center}
+	\textbf{Ethernet links} (common scenario):\\
+	read negotiated speed from the driver\\[0.5cm]
+	\pause
+	not the best approach, but it's easy\\[0.5cm]
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Throughput in kernel space (4)}
+	\begin{center}
+	\textbf{VPN links, various tunnels\dots} (less common):\\
+	no way to read the throughput right away\\[0.1cm]
+	\textbf{Has to be explicitly measured}\\[0.5cm]
+	\pause
+	$\downarrow$\\[0.5cm]
+	Introduction of the \textbf{throughput meter}
+	\end{center}
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Throughput in kernel space (VPN, ADSL, tunnels\dots)}
-	Introduction of a throughput meter in the batman-adv module (started
-	GSoC 2012)
-\end{frame}
-
-\begin{frame}[c]
-	\frametitle{Bandwidth meter}
+	\frametitle{Throughput meter}
 	\begin{itemize}
+		\item started as Google Summer of Code project
 		\item re-implementation of TCP on batman-adv
 		\item no need for IPs (use batman-adv identifiers)
 		\item can be easily used with batctl (batman-adv userspace tool)
