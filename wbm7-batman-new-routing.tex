@@ -125,36 +125,24 @@
 		\item the default table is used for traffic originating from the host itself
 	\end{itemize}
 
-	batctl o / batctl o -i eth0
 	\begin{lstlisting}[basicstyle=\tiny]
-root@OpenWrt:/# batctl o
-[B.A.T.M.A.N. adv master-b82b9b2, MainIF/MAC: eth0/fe:f0:00:00:02:01 (bat0 BATMAN_IV)]
-  Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ...
-  fe:f1:00:00:03:01    0.350s   (254) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (254)
-  fe:f1:00:00:01:01    0.800s   (255) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (255)
-  fe:f0:00:00:05:01    0.770s   (225) fe:f1:00:00:03:01 [      eth1]: fe:f0:00:00:03:01 (211) fe:f1:00:00:03:01 (225)
-  fe:f0:00:00:03:01    0.670s   (255) fe:f0:00:00:03:01 [      eth0]: fe:f1:00:00:03:01 (255) fe:f0:00:00:03:01 (255)
-  fe:f0:00:00:04:01    0.520s   (234) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (234) fe:f0:00:00:03:01 (222)
-  fe:f0:00:00:01:01    0.920s   (255) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (255) fe:f0:00:00:01:01 (254)
+# batctl o
+[B.A.T.M.A.N. adv master-b82b9b2, MainIF/MAC: wlan0/node2_wlan0 (bat0 BATMAN_IV)]
+ Originator last-seen (#/255)     Nexthop [outIF]:   Potential nexthops ...
+ node3_wlan0   0.670s   (255) node3_wlan0 [wlan0]: node3_wlan1 (255) node3_wlan0 (255)
+ node1_wlan0   0.920s   (255) node1_wlan1 [wlan1]: node1_wlan1 (255) node1_wlan0 (254)
 
-root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth0/originators
-[B.A.T.M.A.N. adv master-b82b9b2, IF/MAC: eth0/fe:f0:00:00:02:01 (bat0 BATMAN_IV)]
-  Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ...
-  fe:f1:00:00:03:01    0.170s   (255) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (255)
-  fe:f1:00:00:01:01    0.510s   (253) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (253)
-  fe:f0:00:00:05:01    0.660s   (222) fe:f1:00:00:03:01 [      eth1]: fe:f0:00:00:03:01 (198) fe:f1:00:00:03:01 (222)
-  fe:f0:00:00:03:01    0.560s   (252) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (252) fe:f0:00:00:03:01 (240)
-  fe:f0:00:00:04:01    0.250s   (240) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (240) fe:f0:00:00:03:01 (211)
-  fe:f0:00:00:01:01    0.850s   (255) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (255) fe:f0:00:00:01:01 (238)
-  root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth1/originators
-  [B.A.T.M.A.N. adv master-b82b9b2, IF/MAC: eth1/fe:f1:00:00:02:01 (bat0 BATMAN_IV)]
-    Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ...
-    fe:f1:00:00:03:01    0.880s   (240) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (240)
-    fe:f1:00:00:01:01    0.250s   (239) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (239)
-    fe:f0:00:00:05:01    0.340s   (211) fe:f1:00:00:03:01 [      eth1]: fe:f0:00:00:03:01 (210) fe:f1:00:00:03:01 (211)
-    fe:f0:00:00:03:01    0.260s   (253) fe:f0:00:00:03:01 [      eth0]: fe:f1:00:00:03:01 (240) fe:f0:00:00:03:01 (253)
-    fe:f0:00:00:04:01    0.010s   (225) fe:f0:00:00:03:01 [      eth0]: fe:f1:00:00:03:01 (224) fe:f0:00:00:03:01 (225)
-    fe:f0:00:00:01:01    0.510s   (255) fe:f0:00:00:01:01 [      eth0]: fe:f1:00:00:01:01 (240) fe:f0:00:00:01:01 (255)
+# batctl o -i wlan0
+[B.A.T.M.A.N. adv master-b82b9b2, IF/MAC: wlan0/node2_wlan0 (bat0 BATMAN_IV)]
+ Originator last-seen (#/255)     Nexthop [outIF]:   Potential nexthops ...
+ node3_wlan0   0.560s   (252) node3_wlan1 [wlan1]: node3_wlan1 (252) node3_wlan0 (240)
+ node1_wlan0   0.850s   (255) node1_wlan1 [wlan1]: node1_wlan1 (255) node1_wlan0 (238)
+
+# batctl o -i wlan1
+[B.A.T.M.A.N. adv master-b82b9b2, IF/MAC: wlan1/node2_wlan1 (bat0 BATMAN_IV)]
+ Originator last-seen (#/255)     Nexthop [outIF]:   Potential nexthops ...
+ node3_wlan0   0.260s   (253) node3_wlan0 [wlan0]: node3_wlan1 (240) node3_wlan0 (253)
+ node1_wlan0   0.510s   (255) node1_wlan0 [wlan0]: node1_wlan1 (240) node1_wlan0 (255)
 	\end{lstlisting}
 
 \end{frame}
@@ -196,6 +184,11 @@ root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth0/originators
 
 \begin{frame}[c]
 	\frametitle{B.A.T.M.A.N. V - the future}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.5]{ext_images/Animal_echolocation.pdf}
+	\end{figure}
+
 	\begin{itemize}
 		\item ''throughput`` based
 		\item two packets - two functions
