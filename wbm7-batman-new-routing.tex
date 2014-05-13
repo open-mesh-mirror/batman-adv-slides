@@ -1,4 +1,4 @@
-\documentclass[slidestop]{beamer} 
+\documentclass[slidestop]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{pgf}
 \usepackage{algorithmic}
@@ -29,6 +29,7 @@
 	\titlepage
 \end{frame}
 
+\section{Introduction}
 \begin{frame}[c]
 	\frametitle{A few words about batman-adv\dots}
 
@@ -60,13 +61,44 @@
 	\end{itemize}
 \end{frame}
 
-\section{Introduction}
+\section{Multi-if routing}
 \begin{frame}[c]
 	\frametitle{Network-wide multi-interface optimization}
-	chachacha cool!
+
+	brief recap:
+
+	\begin{itemize}
+		\item batman-adv supports link-local multi-iface optimizations since early 2010
+		\item results were good but we can do better ..
+	\end{itemize}
+
+	\addvspace{1.0cm}
+
+	B.A.T.M.A.N. V roadmap (extract):
+
+	\begin{itemize}
+		\item differentiation between half duplex / full duplex
+		\item take advantage of the many interfaces devices are powered with today
+		\item ... by applying rules to the traffic flow
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Network-wide multi-interface optimization (2)}
+
+	in a nutshell:
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.4]{multi-if.jpg}
+		\includegraphics[scale=0.4]{images/multi-if1.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Network-wide multi-interface optimization (3)}
+
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{images/multi-if2.pdf}
 	\end{figure}
 \end{frame}
 
