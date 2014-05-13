@@ -31,7 +31,18 @@
 
 \begin{frame}[c]
 	\frametitle{A few words about batman-adv\dots}
-	something cool
+
+	The B.A.T.M.A.N. protocol was initiated in Berlin, 2006. The first edition was developed as a daemon, and moved to kernel space in 2007 to improve performance.
+
+	Characteristics:
+	\begin{itemize}
+		\item L2 routing (MAC address layer)
+		\item encapsulates incoming ether frames and handles all forwarding/delivery
+		\item agnostic to IP or any L3 protocol
+		\item runs on any Ethernet capable device (e.g. 802.3, 802.11, and 802.15.1)
+		\item supports non-mesh clients with roaming \& more
+		\item part of the Linux kernel, thus shipped by default in most Linux distributions (modprobe batman-adv)
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[c]
@@ -43,12 +54,15 @@
 		\item extended AP isolation
 		\item multicast improvements
 		\item inter-connecting batman clouds
+		\item layer2 anycast support
+		\item DHT generalization (IPv6 address caching, ..)
+		\item ...
 	\end{itemize}
 \end{frame}
 
 \section{Introduction}
 \begin{frame}[c]
-	\frametitle{Network wide multi-interface optimization}
+	\frametitle{Network-wide multi-interface optimization}
 	chachacha cool!
 	\begin{figure}
 		\centering
