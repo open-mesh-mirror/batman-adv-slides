@@ -188,12 +188,25 @@
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Bandwidth: how do we get it? 1/2}
+	\frametitle{Reading throughput in kernel space (wifi)}
 	explain the wifi case and the interaction with cfg/mac80211 (WIP)
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.3]{images/wireless-stack.pdf}
+	\end{figure}
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Bandwidth: how do we get it? 2/2}
+	\frametitle{A new metric}
+	\begin{center}
+		Current metric: based on \textbf{packet loss}\\
+		\pause
+		New metric: based on \textbf{throughput}\\
+	\end{center}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Throughput in kernel space (Ethernet)}
 	other cases:
 	\begin{itemize}
 		\item Ethernet connections (common scenario)\\
@@ -205,23 +218,73 @@
 			can't directly read it. Needs for an explicit
 			measurement
 	\end{itemize}
-	\pause
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Throughput in kernel space (VPN, ADSL, tunnels\dots)}
 	Introduction of a throughput meter in the batman-adv module (started
 	GSoC 2012)
 \end{frame}
 
 \begin{frame}[c]
 	\frametitle{Bandwidth meter}
-	how it work..blabla like TCP, very simple explanation.
-\end{frame}
-
-\begin{frame}[c]
-	\frametitle{Current status - how to enable it}
+	\begin{itemize}
+		\item re-implementation of TCP on batman-adv
+		\item no need for IPs (use batman-adv identifiers)
+		\item can be easily used with batctl (batman-adv userspace tool)
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[c]
 	\frametitle{Current status}
-	work in progress
+	\begin{itemize}
+		\item cfg/mac80211 patches have been sent to the linux-wireless
+			mailing list. Still require some work, but close to
+			integration
+		\item a working B.A.T.M.A.N. V prototype is available in our git
+			repository (interaction with cfg80211 must be adjusted)
+		\item open problem: how to recover from a dead path faster?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[c,fragile]
+	\frametitle{How to use B.A.T.M.A.N. V on my node}
+	The batman-adv kernel module is already able to host more than one
+	routing algorithm
+	\pause
+	\begin{lstlisting}[basicstyle=\scriptsize]
+	# cat /sys/kernel/debug/batman_adv/routing_algos
+	BATMAN_IV
+	BATMAN_V (not yet here...)
+	\end{lstlisting}
+	\pause
+	Benefits:
+	\begin{itemize}
+		\item the routing algorithm can be changed at runtime
+	\end{itemize}
+	\pause
+	\begin{lstlisting}[basicstyle=\scriptsize]
+	# echo BATMAN_V >/sys/module/batman_adv/parameters/routing_algo
+	# batctl if add -m bat0 wlan0
+	\end{lstlisting}
+	\pause
+	\begin{itemize}
+		\item both algorithms can be used at the same time (on two
+			different interfaces)
+	\end{itemize}
+	\begin{lstlisting}[basicstyle=\scriptsize]
+	# echo BATMAN_IV >/sys/module/batman_adv/parameters/routing_algo
+	# batctl if add -m bat1 wlan1
+	\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{How to use B.A.T.M.A.N. V on my node (2)}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.28]{images/multi-protocols.pdf}
+	\end{figure}
 \end{frame}
 
 \section{Conclusions}
@@ -232,9 +295,8 @@
 	\textbf{Wiki:}\\
 	http://www.open-mesh.org\\
 	\textbf{IRC:}\\
-	#batman @ Freenode\\
-	\textbf{Mailing list}
-
+	\#batman at irc.freenode.org\\
+	\textbf{Mailing list} (check the wiki)
 \end{frame}
 
 \begin{frame}[c]
