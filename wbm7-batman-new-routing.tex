@@ -222,16 +222,8 @@
 		But a mesh network can have heterogeneous links:
 		\begin{itemize}
 			\item WiFi
-			\item Ethernet
+			\item Wired links
 			\item VPNs, my-cool-tunnel-software\dots
-		\end{itemize}
-		\pause
-		\vspace{0.5cm}
-		Problems:
-		\begin{itemize}
-			\item How do we measure the throughput?
-			\item How do we combine throughput of different link
-				types?
 		\end{itemize}
 	\end{center}
 \end{frame}
@@ -251,7 +243,7 @@
 	\frametitle{Reading throughput in kernel space (WiFi) (2)}
 	\begin{center}
 	Our use case is \textbf{ath9k}, thus our work is focussed on
-	\textbf{MinstrealHT}\\[0.5cm]
+	\textbf{MinstrelHT}\\[0.5cm]
 	\pause
 	MinstrelHT periodically uses data-frames to probe bitrates\\
 	Unused links need to be ''manually`` probed\\[0.5cm]
@@ -265,7 +257,7 @@
 \begin{frame}[c]
 	\frametitle{Throughput in kernel space (3)}
 	\begin{center}
-	\textbf{Ethernet links} (common scenario):\\
+	\textbf{Wired links} (common scenario):\\
 	read negotiated speed from the driver\\[0.5cm]
 	\pause
 	not the best approach, but it's easy\\[0.5cm]
@@ -285,13 +277,25 @@
 	\end{center}
 \end{frame}
 
+\begin{frame}
+	\begin{itemize}
+		\item How do we measure the throughput?
+		\begin{itemize}
+			\item different RC algorithms (different API
+				implementation? need a different
+				probing schema?)
+			\item different throughput from different link types
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
 \begin{frame}[c]
 	\frametitle{Throughput meter in batman-adv}
 	\begin{itemize}
 		\item started as Google Summer of Code project in 2012
 		\item re-implementation of TCP on batman-adv
 		\item no need for IPs (uses batman-adv identifiers)
-		\item can be easily used with batctl (batman-adv userspace tool)
+		\item can also be used from userspace (using batctl)
 		\item measures the ''payload`` throughput (no packet overhead)
 	\end{itemize}
 \end{frame}
@@ -305,13 +309,6 @@
 			repository (ordex/batman\_v branch)
 		\item a working \textbf{throughput meter} protorype is available
 			in our git reporitory (ordex/bw\_meter branch)
-	\end{itemize}
-	\pause
-	Open problems:
-	\begin{itemize}
-		\item how to recover from a dead path faster?
-		\pause
-		\item how do we properly \textbf{combine} different throughputs?
 	\end{itemize}
 \end{frame}
 
@@ -355,7 +352,6 @@
 \end{frame}
 
 \section{Conclusions}
-
 \begin{frame}[c]
 	\begin{center}
 	\Large{\textbf{Thank you for your attention\\[1cm]
