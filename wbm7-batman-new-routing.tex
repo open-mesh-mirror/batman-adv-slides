@@ -169,45 +169,47 @@
 
 \section{Routing protocol}
 \begin{frame}[c]
-	\frametitle{B.A.T.M.A.N. IV - the present}
+	\frametitle{protocol overview}
 	\begin{itemize}
-		\item packet loss based
-		\item one packet (OGM) - two functions
+		\item evolution instead of revolution
+		\item design goals
 			\begin{itemize}
-				\item Neighbour discovery/Link quality
-					measurement
-				\item Routing information (and more..) diffusion
+				\item simplification
+				\item gain flexibility to better support diverse scenarios
+				\item reduce overhead
 			\end{itemize}
-		\item not easy to tune
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{B.A.T.M.A.N. V - the future}
+	\frametitle{protocol overview - ELP}
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.5]{ext_images/Animal_echolocation.pdf}
 	\end{figure}
 
+	ELP - Echo Location Protocol
 	\begin{itemize}
-		\item ''throughput`` based
-		\item two packets - two functions
-			\begin{itemize}
-				\item ELP: Neighbour discovery/Link metric
-					exchange
-				\item OGM:Routing information (and more..) diffusion
-			\end{itemize}
-		\item ELP and OGM intervals can be tuned independently
+		\item link sensing \& neighbour discovery
+		\item no rebroadcast or forward of any kind
+		\item short broadcast intervals
 	\end{itemize}
-	\begin{figure}
-		\centering
-	\end{figure}
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{How does the routing work?}
-	picture and explanation on how the metric is propagated. (Simon had one
-	in his notes two years ago)
+	\frametitle{protocol overview - OGMv2}
+
+	OGMv2 - Originator Message Protocol v2
+	\begin{itemize}
+		\item propagating routes in the mesh
+		\item rebroadcast with stricter rules, yet simplified
+		\item long broadcast intervals
+	\end{itemize}
+
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.2]{images/ogm-elp.pdf}
+	\end{figure}
 \end{frame}
 
 \section{Metric}
