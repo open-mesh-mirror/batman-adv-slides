@@ -216,7 +216,12 @@
 \begin{frame}[c]
 	\frametitle{A new metric}
 	\begin{center}
-		The dream of \textbf{throughput based routing}\dots
+		The dream of \textbf{throughput based routing}\dots\\[1cm]
+		\begin{itemize}
+			\item the idea is around for at least a decade
+			\item existing approaches
+			\item our motivation
+		\end{itemize}
 	\end{center}
 \end{frame}
 
@@ -280,8 +285,8 @@
 		\item started as Google Summer of Code project in 2012
 		\item re-implementation of TCP on batman-adv
 		\item no need for IPs (uses batman-adv identifiers)
-		\item can also be used from userspace (using batctl)
 		\item measures the ''payload`` throughput (no packet overhead)
+		\item can also be used from userspace (using batctl)
 	\end{itemize}
 	\addvspace{0.5cm}
 	Example:\\
@@ -302,7 +307,7 @@
 			\item different API implementation
 			\item need for a different probing schema
 		\end{itemize}
-		\item different throughput from different link types
+		\item throughput != throughput
 		\item real world testing
 	\end{itemize}
 \end{frame}
