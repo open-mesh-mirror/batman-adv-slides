@@ -232,9 +232,17 @@
 
 \begin{frame}[c,fragile]
 	\frametitle{Reading throughput in kernel space (WiFi) (2)}
-	Our work focusses on \textbf{MinstrelHT}\\[0.5cm]
-	\begin{lstlisting}[basicstyle=tiny]
-	rate table
+	Example of RC statistics (MinstrelHT):
+	\begin{lstlisting}[basicstyle=\tiny]
+	# cat /sys/kernel/debug/ieee80211/phy0/netdev:mesh0/stations/xx:xx:xx:xx:xx:xx/rc_stats
+
+	type         rate   thr   ewma   prob   retry  ....
+	HT20/LGI     MCS0   5.9   95.8   100.0   3     ....
+	HT20/LGI     MCS1   9.4   80.4    66.6   3     ....
+	HT20/LGI     MCS2  12.2   74.2   100.0   2     ....
+	HT20/LGI T   MCS3  13.2   64.1   100.0   2     ....
+	HT20/LGI     MCS4  12.3   44.3   100.0   4     ....
+	.....
 	\end{lstlisting}
 \end{frame}
 
@@ -244,21 +252,23 @@
 	\textbf{Wired links} (common scenario):\\
 	read negotiated speed from the driver\\[0.5cm]
 	\pause
-	not the best approach, but it's easy\\[0.3cm]
+	it is easy, but it is not the best approach\\[0.3cm]
 	Example:
 	\begin{figure}
 		\centering
-		\includegraphics[scale=0.25]{images/ethernet-switch.pdf}
+		\includegraphics[scale=0.20]{images/ethernet-switch.pdf}
 	\end{figure}
 	\end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[c]
 	\frametitle{Throughput in kernel space (4)}
 	But what about:
 	\begin{itemize}
 	\item VPN links
 	\item tunnels
+	\item non-mac80211 WiFi drivers
+	\item better Ethernet throughput estimation
 	\item \dots
 	\end{itemize}
 	manual configuration? what else?
