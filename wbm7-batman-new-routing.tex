@@ -216,18 +216,7 @@
 \begin{frame}[c]
 	\frametitle{A new metric}
 	\begin{center}
-		Current metric: based on \textbf{packet loss}\\
-		\pause
-		\vspace{0.5cm}
-		The metric in B.A.T.M.A.N. V is based on \textbf{throughput}\\
-		\pause
-		\vspace{0.5cm}
-		But a mesh network can have heterogeneous links:
-		\begin{itemize}
-			\item WiFi
-			\item Wired links
-			\item VPNs, my-cool-tunnel-software\dots
-		\end{itemize}
+		The dream of \textbf{throughput based routing}\dots
 	\end{center}
 \end{frame}
 
@@ -235,7 +224,6 @@
 	\frametitle{Reading throughput in kernel space (WiFi)}
 	\textbf{Wireless links:} query the Rate Control algorithm
 	\vfill
-	\pause
 	\begin{figure}
 		\centering
 		\includegraphics[scale=0.3]{images/wireless-stack.pdf}
@@ -245,15 +233,10 @@
 \begin{frame}[c]
 	\frametitle{Reading throughput in kernel space (WiFi) (2)}
 	\begin{center}
-	Our use case is \textbf{ath9k}, thus our work is focussed on
-	\textbf{MinstrelHT}\\[0.5cm]
-	MinstrelHT periodically uses data-frames to probe bitrates\\
-	Unused links need to be ''manually`` probed\\[0.5cm]
-	\pause
-	$\downarrow$\\[0.5cm]
-	ELP sends probes messages to every known neighbour\\
-	(2 per neighbour every 100ms - if link is idle)
-	\end{center}
+	Our work focusses on \textbf{MinstrelHT}\\[0.5cm]
+	\begin{lstlisting}[basicstyle=tiny]
+	rate table
+	\end{lstlisting}
 \end{frame}
 
 \begin{frame}[c]
@@ -273,15 +256,13 @@
 
 \begin{frame}
 	\frametitle{Throughput in kernel space (4)}
-	\begin{center}
-	\textbf{VPN links, various tunnels\dots} (less common):\\
-	no way to read the throughput right away\\[0.1cm]
-	$\downarrow$\\[0.5cm]
-	\textbf{Has to be explicitly measured}\\[0.5cm]
-	\pause
-	$\downarrow$\\[0.5cm]
-	Introduction of the \textbf{throughput meter}
-	\end{center}
+	But what about:
+	\begin{itemize}
+	\item VPN links
+	\item tunnels
+	\item \dots
+	\end{itemize}
+	manual configuration? what else?
 \end{frame}
 
 \begin{frame}[c,fragile]
